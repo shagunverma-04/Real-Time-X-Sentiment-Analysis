@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Sentiment Analysis Results</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .sentiment-stats {
+            display: flex;
+            justify-content: space-between;
+        }
+        .positive { color: green; }
+        .negative { color: red; }
+        .neutral { color: gray; }
+    </style>
+</head>
+<body>
+    <h1>Sentiment Analysis Results</h1>
+    
+    <div class="sentiment-stats">
+        <div class="positive">
+            <h3>Positive: {{ positive }}%</h3>
+        </div>
+        <div class="negative">
+            <h3>Negative: {{ negative }}%</h3>
+        </div>
+        <div class="neutral">
+            <h3>Neutral: {{ neutral }}%</h3>
+        </div>
+    </div>
+
+    {% if analyzed_tweets %}
+    <div class="results-section">
+        <h3>Analysis Results</h3>
+        <div class="statistics">
+            <p>Positive: {{ positive }}%</p>
+            <p>Negative: {{ negative }}%</p>
+            <p>Neutral: {{ neutral }}%</p>
+        </div>
+        
+        <h4>Analyzed Tweets</h4>
+        {% for tweet in analyzed_tweets %}
+            <div class="tweet-card">
+                <p class="tweet-text">{{ tweet.text }}</p>
+                <p class="sentiment-info">
+                    Sentiment: <span class="sentiment-{{ tweet.ml_sentiment }}">{{ tweet.ml_sentiment }}</span>
+                    (Confidence: {{ tweet.ml_confidence }})
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+{% endif %}
+
+    <a href="/">Back to Search</a>
+</body>
+</html>
